@@ -146,3 +146,6 @@ if [ -f '/Users/clay.ratliff/GCP-tools/google-cloud-sdk/path.zsh.inc' ]; then . 
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/clay.ratliff/GCP-tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/clay.ratliff/GCP-tools/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Use zoxide
+eval "$(zoxide init zsh)"
