@@ -1,4 +1,4 @@
-# If you come from bash you might have to change your $PATH.
+
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 HISTFILE=~/.histfile
 HISTSIZE=10000
@@ -115,8 +115,23 @@ bindkey -M menuselect 'j' vi-up-line-or-history
 # For a full list of active aliases, run `alias`.
 #
 
+# set up shell integration for aichat
+# type in the text and press alt-e to activate aichat
+_aichat_zsh() {
+    if [[ -n "$BUFFER" ]]; then
+        local _old=$BUFFER
+        BUFFER+="⌛"
+        zle -I && zle redisplay
+        BUFFER=$(aichat -e "$_old")
+        zle end-of-line
+    fi
+}
+zle -N _aichat_zsh
+bindkey '^E' _aichat_zsh
+
 alias vim='nvim'
-alias ls='exa'
+alias ls='exa -al --icons --git'
+alias lt='exa -la --icons --git --tree --level=2'
 alias cat="bat"
 alias zshconfig="vim ~/.zshrc"
 alias python='python3'
@@ -139,13 +154,33 @@ export TERMINAL=alacritty
 GPG_TTY=$(tty)
 export GPG_TTY
 
+# So many things depend on this being here I just want to set it explicitly
+export XDG_CONFIG_HOME="/Users/clay.ratliff/.config"
+
+# I don't like the default directory that tpm uses to put tmux plugins
+#export TMUX_PLUGIN_MANAGER_PATH="~/.config/tmux/plugins"
+
+# use fzf in the shell for things like history search
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/clay.ratliff/GCP-tools/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/clay.ratliff/GCP-tools/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/clay.ratliff/GCP-tools/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/clay.ratliff/GCP-tools/google-cloud-sdk/completion.zsh.inc'; fi
 
 # Use zoxide
 eval "$(zoxide init zsh)"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/clay.ratliff/GCP-tooling/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/clay.ratliff/GCP-tooling/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/clay.ratliff/GCP-tooling/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/clay.ratliff/GCP-tooling/google-cloud-sdk/completion.zsh.inc'; fi
+. ~/.avnadmapi.sh
+
+# Created by `pipx` on 2024-04-16 17:55:25
+export PATH="$PATH:/Users/clay.ratliff/.local/bin"
+# Adding the /opt podman path
+export PATH="$PATH:/opt/podman/bin"
+export PATH="$HOME/personal-stuff/development/flutter/bin:$PATH"
+export PATH=$HOME/.gem/bin:$PATH
+export ANDROID_HOME="/Users/clay.ratliff/Library/Android/sdk"
+export PATH="$PATH:/$ANDROID_HOME/tools"
+export PATH=:"$PATH:$ANDROID_HOME/tools/bin"
+export PATH=:"$PATH:$ANDROID_HOME/platform-tools"
+export PATH=:"$PATH:$ANDROID_HOME/cmdline-tools/bin"
