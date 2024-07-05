@@ -16,9 +16,6 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.
--- This is also a good place to setup other settings (vim.opt)
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
 
 -- Setup lazy.nvim
 require("lazy").setup({
@@ -27,9 +24,6 @@ require("lazy").setup({
     { import = "plugins" },
 --    { import = "plugins.lsp" },
   },
-  -- Configure any other settings here. See the documentation for more details.
-  -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "folke/tokyonight.nvim" } },
   -- automatically check for plugin updates
   checker = { enabled = true },
 })

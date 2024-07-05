@@ -17,6 +17,24 @@ vim.api.nvim_create_autocmd("BufReadPre", {
   end,
 })
 
+-- basic session autosave 
+vim.api.nvim_create_autocmd("VimLeave", {
+  pattern = "*",
+  callback = function()
+    vim.cmd("mksession! ~/.cache/nvim/sessions/auto.vim")
+  end
+})
+
+-- basic session autoload
+vim.api.nvim_create_autocmd("VimEnter", {
+  pattern = "*",
+  callback = function()
+    if #vim.v.argv == 1 then  -- Checks if NeoVim was started without file arguments
+      vim.cmd("source ~/.cache/nvim/sessions/autosave.vim")
+    end
+  end
+})
+
 -- highlight text on yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {

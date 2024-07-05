@@ -69,7 +69,7 @@ opt.backupdir = "/Users/clay.ratliff/.cache/nvim"
 opt.history = 1000
 opt.undofile = true
 opt.undodir = "/Users/clay.ratliff/.cache/nvim/undo"
-vim.g.sessions_dir = "/Users/clay.ratliff/.config/nvim/sessions"
+vim.g.sessions_dir = "/Users/clay.ratliff/.cache/nvim/sessions"
 
 -- buffers
 opt.hidden = true -- don't ask me to save when I change buffers
