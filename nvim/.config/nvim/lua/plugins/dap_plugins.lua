@@ -30,4 +30,18 @@ return {
     after = "nvim-dap",  -- Ensure it loads after nvim-dap
     config = require("plugins.nvim-dap-go").config
   },
+
+  -- DAP Lua
+  {
+    "jbyuki/one-small-step-for-vimkind",
+    after = "nvim-dap",
+    config = require("plugins.nvim-dap-lua").config
+  },
+
+  -- DAP python
+  {
+    "mfussenegger/nvim-dap-python",
+    after = "nvim-dap",
+    config = require("plugins.dap-python").config
+  }
 }
