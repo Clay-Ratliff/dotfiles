@@ -11,6 +11,9 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots) # include hidden files
 
+# Disable interpreting the = character as a directory specifier
+setopt NO_EQUALS
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -130,8 +133,8 @@ zle -N _aichat_zsh
 bindkey '^E' _aichat_zsh
 
 alias vim='nvim'
-alias ls='exa -al --icons --git'
-alias lt='exa -la --icons --git --tree --level=2'
+alias ls='eza -al --icons --git'
+alias lt='eza -la --icons --git --tree --level=2'
 alias cat="bat"
 alias zshconfig="vim ~/.zshrc"
 alias python='python3'
@@ -163,6 +166,16 @@ export XDG_CONFIG_HOME="/Users/clay.ratliff/.config"
 # use fzf in the shell for things like history search
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# Nix
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+# End Nix
+
+# Set up completers for carapace
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+source <(carapace _carapace zsh)
 # Use zoxide
 eval "$(zoxide init zsh)"
 
@@ -176,7 +189,8 @@ if [ -f '/Users/clay.ratliff/GCP-tooling/google-cloud-sdk/completion.zsh.inc' ];
 # Created by `pipx` on 2024-04-16 17:55:25
 export PATH="$PATH:/Users/clay.ratliff/.local/bin"
 # Adding the /opt podman path
-export PATH="$PATH:/opt/podman/bin"
+# export PATH="$PATH:/opt/homebrew/Cellar/podman/3.4.0/bin"
+# /opt/podman/bin
 export PATH="$HOME/personal-stuff/development/flutter/bin:$PATH"
 export PATH=$HOME/.gem/bin:$PATH
 export ANDROID_HOME="/Users/clay.ratliff/Library/Android/sdk"
@@ -184,3 +198,24 @@ export PATH="$PATH:/$ANDROID_HOME/tools"
 export PATH=:"$PATH:$ANDROID_HOME/tools/bin"
 export PATH=:"$PATH:$ANDROID_HOME/platform-tools"
 export PATH=:"$PATH:$ANDROID_HOME/cmdline-tools/bin"
+
+# User defined functions
+function pet-select() {
+  BUFFER=$(pet search --query "$LBUFFER")
+  CURSOR=$#BUFFER
+  zle redisplay
+}
+zle -N pet-select
+stty -ixon
+bindkey '^s' pet-select
+
+# FZF Options
+export FZF_CTRL_R_OPTS="
+  --reverse
+  --cycle
+  --info=right
+  --color header:italic
+  --header 'ctrl+s (pet new)'
+  --preview 'echo {}' --preview-window down:3:hidden:wrap 
+  --bind '?:toggle-preview'
+  --bind 'ctrl-s:execute(pet new --tag {2..})+abort'"

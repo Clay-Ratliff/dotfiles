@@ -8,9 +8,9 @@ return {
 		conform.setup({
 			formatters_by_ft = {
 				javascript = { "prettier" },
-				python = { "isort", "black" },
+				-- python = { "isort", "black" },
 				terraform = { "terraform_fmt" },
-				json = { "fixjson" },
+				json = { "jq" },
 				java = { "google-java-format" },
 				kotlin = { "ktlint" },
 				markdown = { "mdformat" },

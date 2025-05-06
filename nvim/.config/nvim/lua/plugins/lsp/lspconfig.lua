@@ -106,14 +106,8 @@ return {
 			on_attach = on_attach,
 		})
 
-		-- configure java server
-		lspconfig["jdtls"].setup({
-			capabilities = capabilities,
-			on_attach = on_attach,
-		})
-
 		-- configure typescript server with plugin
-		lspconfig["tsserver"].setup({
+		lspconfig["ts_ls"].setup({
 			capabilities = capabilities,
 			on_attach = on_attach,
 		})
@@ -130,35 +124,11 @@ return {
 			on_attach = on_attach,
 		})
 
-		-- configure Rust server
---		lspconfig["rust_analyzer"].setup({
---			capabilities = capabilities,
---			on_attach = on_attach,
---			settings = {
---				["rust-analyzer"] = {
---					imports = {
---						granularity = {
---							group = "module",
---						},
---						prefix = "self",
---					},
---					cargo = {
---						allFeatures = true,
---						loadOutDirsFromCheck = true,
---						runBuildScripts = true,
---					},
---					-- Add clippy lints for Rust.
---					checkOnSave = {
---						allFeatures = true,
---						command = "clippy",
---						extraArgs = { "--no-deps" },
---					},
---					procMacro = {
---						enable = true,
---					},
---				},
---			},
---		})
+		-- configure dart lsp
+		lspconfig["dartls"].setup({
+			capabilities = capabilities,
+			on_attach = on_attach,
+		})
 
 		-- configure lua server (with special settings)
 		lspconfig["lua_ls"].setup({

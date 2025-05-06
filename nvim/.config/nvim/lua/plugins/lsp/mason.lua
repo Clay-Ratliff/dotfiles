@@ -28,17 +28,16 @@ return {
 		mason_lspconfig.setup({
 			-- list of servers for mason to install
 			ensure_installed = {
-				"tsserver",
+				"ts_ls",
 				"html",
 				"dockerls",
 				"bashls",
 				"lua_ls",
 				"pyright",
 				"jsonls",
-				"jdtls",
-				"kotlin_language_server",
 				"marksman",
 				"terraformls",
+				"dart",
 			},
 			-- auto-install configured servers (with lspconfig)
 			automatic_installation = true, -- not the same as ensure_installed
@@ -49,12 +48,11 @@ return {
 				"luacheck", -- Lua linter
 				"stylua", -- lua formatter
 				"isort", -- python formatter
-				"black", -- python formatter
-				"pylint", -- python linter
+				--				"black", -- python formatter
+				--				"pylint", -- python linter
 				"eslint_d", -- js linter
 				"jsonlint", -- JSON linter
 				"shellharden", -- shell script linter
-				"ktlint", -- kotlin linter
 				"markdownlint", -- Markdown linter
 			},
 		})
